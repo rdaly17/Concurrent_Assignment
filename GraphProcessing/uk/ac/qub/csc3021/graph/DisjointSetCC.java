@@ -28,7 +28,6 @@ public class DisjointSetCC {
 	    return false;
 	}
 
-	    return x < y;
 	// Variable declarations
 	private AtomicIntegerArray parent;
     };
