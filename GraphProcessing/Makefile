@@ -4,7 +4,7 @@ JAVAC = javac
 CLASS_STEMS = Relax SparseMatrix SparseMatrixCOO SparseMatrixCSR \
 	      SparseMatrixCSC PageRank ConnectedComponents ParallelContext \
 	      ParallelContextHolder ParallelContextSingleThread \
-	      ParallelContextSimple ParallelContextQ3 DisjointSetCC
+	      ParallelContextSimple DisjointSetCC
 
 PKG_CLASS_FILES = $(patsubst %,uk/ac/qub/csc3021/graph/%.class,$(CLASS_STEMS))
 PKG_JAVA_FILES = $(patsubst %,uk/ac/qub/csc3021/graph/%.java,$(CLASS_STEMS))
