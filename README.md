@@ -13,7 +13,7 @@ You will clone this repository and move it into your own private repository. You
    Using a command line, do
    $ git clone https://hpdc-gitlab.eeecs.qub.ac.uk/hvandierendonck/csc3021_assignments_2021.git
    Maybe you will need:
-   $ GIT_SSL_NO_VERIFY=true git clone https://hpdc-gitlab.eeecs.qub.ac.uk/hvandierendonck/csc3021_assignments_2021.git
+   $ GIT_TERMINAL_PROMPT=0 GIT_SSL_NO_VERIFY=true git clone https://hpdc-gitlab.eeecs.qub.ac.uk/hvandierendonck/csc3021_assignments_2021.git
 4. Point the repository to your own repository
    $ git remote remove origin
    $ git remote add origin https://gitlab2.eeecs.qub.ac.uk/USER/REPO
