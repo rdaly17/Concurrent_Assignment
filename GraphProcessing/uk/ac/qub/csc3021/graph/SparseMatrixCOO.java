@@ -20,6 +20,8 @@ public class SparseMatrixCOO extends SparseMatrix {
     // ...
     int num_vertices; // Number of vertices in the graph
     int num_edges;    // Number of edges in the graph
+    int[] sources;
+    int[] destinations;
 
     public SparseMatrixCOO( String file ) {
 	try {
@@ -67,6 +69,10 @@ public class SparseMatrixCOO extends SparseMatrix {
 
 	// TODO: Allocate memory for the COO representation
 	// ...
+	sources = new int[num_edges];
+	destinations = new int[num_edges];
+	
+	
 
 	int edge[] = new int[2];
 	for( int i=0; i < num_edges; ++i ) {
@@ -74,6 +80,9 @@ public class SparseMatrixCOO extends SparseMatrix {
 	    // TODO:
 	    //    Insert edge with source edge[0] and destination edge[1]
 	    // ...
+	    
+	    sources[i] = edge[0];
+	    destinations[i] = edge[1];
 	}
     }
 
@@ -89,6 +98,27 @@ public class SparseMatrixCOO extends SparseMatrix {
 	//    Calculate the out-degree for every vertex, i.e., the
 	//    number of edges where a vertex appears as a source vertex.
 	// ...
+    	
+    	int [] fr = new int [sources.length];  
+        int visited = -1;  
+        for(int i = 0; i < sources.length; i++){  
+            int count = 1;  
+            for(int j = i+1; j < sources.length; j++){  
+                if(sources[i] == sources[j]){  
+                    count++;  
+                    //To avoid counting same element again  
+                    fr[j] = visited;  
+                }  
+            }  
+            if(fr[i] != visited)  
+                fr[i] = count;  
+        }  
+        
+        for (int k = 0; k < fr.length; k++) {
+        	outdeg[k] = fr[k];
+        }
+    	
+    	
     }
 
     public void edgemap( Relax relax ) {
@@ -97,6 +127,12 @@ public class SparseMatrixCOO extends SparseMatrix {
 	//    the contribution to the new PageRank value of a destination
 	//    vertex made by the corresponding source vertex
 	// ...
+    	for (int i = 0; i < num_edges; i++) {
+    			relax.relax(sources[i], destinations[i]);
+    	}
+    	
+    	
+    	
     }
 
     public void ranged_edgemap( Relax relax, int from, int to ) {

@@ -41,7 +41,9 @@ public class PageRank {
 	}
 
 	int outdeg[] = new int[n];
+	System.err.println( "hell02" );
 	matrix.calculateOutDegree( outdeg );
+	System.err.println( "hell03" );
 
 	double tm_init = (double)(System.nanoTime() - tm_start) * 1e-9;
 	System.err.println( "Initialisation: " + tm_init + " seconds" );

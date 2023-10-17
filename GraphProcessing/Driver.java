@@ -63,7 +63,6 @@ class Driver {
 	long tm_start = System.nanoTime();
 
 	SparseMatrix matrix;
-
 	// Step 1. Read in the file
 	if( format.equalsIgnoreCase( "CSR" ) ) {
 	    matrix = new SparseMatrixCSR( inputFileCSR );
@@ -71,6 +70,7 @@ class Driver {
 	    matrix = new SparseMatrixCSC( inputFileCSC );
 	} else if( format.equalsIgnoreCase( "COO" ) ) {
 	    matrix = new SparseMatrixCOO( inputFileCOO );
+	    System.err.println( "hello");
 	} else if( format.equalsIgnoreCase( "ICHOOSE" ) ) {
 	    // Pick any you want.
 	    // matrix = new SparseMatrixCOO( inputFileCOO );
