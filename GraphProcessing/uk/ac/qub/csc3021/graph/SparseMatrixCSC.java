@@ -11,6 +11,9 @@ import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 // This class represents the adjacency matrix of a graph as a sparse matrix
 // in compressed sparse columns format (CSC). The incoming edges for each
@@ -20,6 +23,8 @@ public class SparseMatrixCSC extends SparseMatrix {
     // ...
     int num_vertices; // Number of vertices in the graph
     int num_edges;    // Number of edges in the graph
+    int[] index;
+    int[] sources;
 
     public SparseMatrixCSC( String file ) {
 	try {
@@ -58,6 +63,8 @@ public class SparseMatrixCSC extends SparseMatrix {
 
 	// TODO: allocate data structures
 	// ...
+	index = new int[num_vertices+1];
+	sources = new int[num_edges];
 
 	for( int i=0; i < num_vertices; ++i ) {
 	    line = rd.readLine();
@@ -87,6 +94,20 @@ public class SparseMatrixCSC extends SparseMatrix {
 	//    Calculate the out-degree for every vertex, i.e., the
 	//    number of edges where a vertex appears as a source vertex.
 	// ...
+    	int count;
+    	List<Integer> sourceslist = new ArrayList<>();
+    	List<Integer> sourceslist_no = new ArrayList<>();
+    	for (int i=0; i<sources.length;i++) {
+    		sourceslist.add(Integer.valueOf(sources[i]));
+    		if (sourceslist_no.contains(sources[i])==false) {
+    			sourceslist_no.add(Integer.valueOf(sources[i]));
+    		}
+    	}
+    	
+    	for (int k=0; k<sourceslist_no.size(); k++) {
+    		count = Collections.frequency(sourceslist, sourceslist_no.get(k));
+    		outdeg[k] = count;
+    	}
     }
     
     public void edgemap( Relax relax ) {
@@ -94,6 +115,11 @@ public class SparseMatrixCSC extends SparseMatrix {
 	//    Iterate over all edges in the sparse matrix and call "relax"
 	//    on each edge.
 	// ...
+    	for (int i = 1; i < num_vertices+1; i++) {
+    		for (int j = index[i-1]; j < index[i]; j++) {
+    			relax.relax(i-1, sources[j]);
+    		}
+    	}
     }
 
     public void ranged_edgemap( Relax relax, int from, int to ) {

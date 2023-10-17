@@ -20,6 +20,8 @@ public class SparseMatrixCSR extends SparseMatrix {
     // ...
     int num_vertices; // Number of vertices in the graph
     int num_edges;    // Number of edges in the graph
+    int[] index;
+    int[] destinations;
 
     public SparseMatrixCSR( String file ) {
 	try {
@@ -58,6 +60,9 @@ public class SparseMatrixCSR extends SparseMatrix {
 
 	// TODO: Allocate memory for the CSR representation
 	// ...
+	index = new int[num_vertices+1];
+	destinations = new int[num_edges];
+	index[0] = 0;
 
 	for( int i=0; i < num_vertices; ++i ) {
 	    line = rd.readLine();
@@ -70,7 +75,12 @@ public class SparseMatrixCSR extends SparseMatrix {
 		// TODO:
 		//    Record an edge from source i to destination dst
 		// ...
+//		destinations[j-1] = dst;
+		
+		
 	    }
+
+	    
 	}
     }
 
@@ -87,6 +97,9 @@ public class SparseMatrixCSR extends SparseMatrix {
 	//    Calculate the out-degree for every vertex, i.e., the
 	//    number of edges where a vertex appears as a source vertex.
 	// ...
+    	for (int i = 0; i < num_vertices; i++) {
+    		outdeg[i] = index[i+1] - index[i];
+    	}
     }
     
     // Apply relax once to every edge in the graph
@@ -96,6 +109,11 @@ public class SparseMatrixCSR extends SparseMatrix {
 	//    the contribution to the new PageRank value of a destination
 	//    vertex made by the corresponding source vertex
 	// ...
+    	for (int i = 1; i < num_vertices+1; i++) {
+    		for (int j = index[i-1]; j < index[i]; j++) {
+    			relax.relax(i-1, destinations[j]);
+    		}
+    	}
     }
 
     public void ranged_edgemap( Relax relax, int from, int to ) {

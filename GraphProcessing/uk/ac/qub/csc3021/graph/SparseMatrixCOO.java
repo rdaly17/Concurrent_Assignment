@@ -11,6 +11,10 @@ import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.StringTokenizer;
 
 // This class represents the adjacency matrix of a graph as a sparse matrix
@@ -98,25 +102,39 @@ public class SparseMatrixCOO extends SparseMatrix {
 	//    Calculate the out-degree for every vertex, i.e., the
 	//    number of edges where a vertex appears as a source vertex.
 	// ...
+//    	List<Integer> sourceslist = new ArrayList<>();
+//    	for (int k = 0; k < sources.length; k++) {
+//    		sourceslist.add(sources[k]);
+//    	}
     	
-    	int [] fr = new int [sources.length];  
-        int visited = -1;  
-        for(int i = 0; i < sources.length; i++){  
-            int count = 1;  
-            for(int j = i+1; j < sources.length; j++){  
-                if(sources[i] == sources[j]){  
-                    count++;  
-                    //To avoid counting same element again  
-                    fr[j] = visited;  
-                }  
-            }  
-            if(fr[i] != visited)  
-                fr[i] = count;  
-        }  
-        
-        for (int k = 0; k < fr.length; k++) {
-        	outdeg[k] = fr[k];
-        }
+
+
+//    	int[] counted = new int[num_edges];
+//    	Arrays.fill(counted, -1);
+    	int count;
+//    	for (int i = 0; i < sourceslist.size(); i++) {
+//    		if (counted.includes(Integer.valueOf(sources[i]))) == false) {
+//    			count = Collections.frequency(sourceslist, sourceslist.get(i));
+//    			counted.add(sourceslist.get(i));
+//    			outdeg[counted.size()-1] = count;
+//    		}
+//    	}
+    	List<Integer> sourceslist = new ArrayList<>();
+    	List<Integer> sourceslist_no = new ArrayList<>();
+    	for (int i=0; i<sources.length;i++) {
+    		sourceslist.add(Integer.valueOf(sources[i]));
+    		if (sourceslist_no.contains(sources[i])==false) {
+    			sourceslist_no.add(Integer.valueOf(sources[i]));
+    		}
+    	}
+    	
+    	for (int k=0; k<sourceslist_no.size(); k++) {
+    		count = Collections.frequency(sourceslist, sourceslist_no.get(k));
+    		outdeg[k] = count;
+    	}
+    
+
+    	
     	
     	
     }
@@ -128,7 +146,7 @@ public class SparseMatrixCOO extends SparseMatrix {
 	//    vertex made by the corresponding source vertex
 	// ...
     	for (int i = 0; i < num_edges; i++) {
-    			relax.relax(sources[i], destinations[i]);
+    			relax.relax(destinations[i], sources[i]);
     	}
     	
     	
