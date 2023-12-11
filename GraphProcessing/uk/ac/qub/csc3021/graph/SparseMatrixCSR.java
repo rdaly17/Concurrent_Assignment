@@ -62,8 +62,7 @@ public class SparseMatrixCSR extends SparseMatrix {
 	// ...
 	index = new int[num_vertices+1];
 	destinations = new int[num_edges];
-	index[0] = 0;
-
+	int count = 0;
 	for( int i=0; i < num_vertices; ++i ) {
 	    line = rd.readLine();
 	    if( line == null )
@@ -75,12 +74,9 @@ public class SparseMatrixCSR extends SparseMatrix {
 		// TODO:
 		//    Record an edge from source i to destination dst
 		// ...
-//		destinations[j-1] = dst;
-		
-		
-	    }
+		destinations[index[i] + (j-1)] = dst;
 
-	    
+	    }    
 	}
     }
 
@@ -109,9 +105,9 @@ public class SparseMatrixCSR extends SparseMatrix {
 	//    the contribution to the new PageRank value of a destination
 	//    vertex made by the corresponding source vertex
 	// ...
-    	for (int i = 1; i < num_vertices+1; i++) {
-    		for (int j = index[i-1]; j < index[i]; j++) {
-    			relax.relax(i-1, destinations[j]);
+    	for (int i = 0; i < num_vertices; i++) {
+    		for (int j = index[i]; j < index[i+1]; j++) {
+    			relax.relax(i, destinations[j]);
     		}
     	}
     }

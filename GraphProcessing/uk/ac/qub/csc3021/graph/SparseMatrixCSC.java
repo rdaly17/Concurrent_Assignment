@@ -65,6 +65,7 @@ public class SparseMatrixCSC extends SparseMatrix {
 	// ...
 	index = new int[num_vertices+1];
 	sources = new int[num_edges];
+	int count = 0;
 
 	for( int i=0; i < num_vertices; ++i ) {
 	    line = rd.readLine();
@@ -77,7 +78,8 @@ public class SparseMatrixCSC extends SparseMatrix {
 		// TODO:
 		//    Record an edge from source src to destination i
 		// ...
-	    }
+		sources[index[i] + (j-1)] = src;
+	}
 	}
     }
 
@@ -94,19 +96,8 @@ public class SparseMatrixCSC extends SparseMatrix {
 	//    Calculate the out-degree for every vertex, i.e., the
 	//    number of edges where a vertex appears as a source vertex.
 	// ...
-    	int count;
-    	List<Integer> sourceslist = new ArrayList<>();
-    	List<Integer> sourceslist_no = new ArrayList<>();
-    	for (int i=0; i<sources.length;i++) {
-    		sourceslist.add(Integer.valueOf(sources[i]));
-    		if (sourceslist_no.contains(sources[i])==false) {
-    			sourceslist_no.add(Integer.valueOf(sources[i]));
-    		}
-    	}
-    	
-    	for (int k=0; k<sourceslist_no.size(); k++) {
-    		count = Collections.frequency(sourceslist, sourceslist_no.get(k));
-    		outdeg[k] = count;
+    	for (int i = 0; i < num_edges; i++) {
+    		outdeg[sources[i]]++;
     	}
     }
     
@@ -115,9 +106,9 @@ public class SparseMatrixCSC extends SparseMatrix {
 	//    Iterate over all edges in the sparse matrix and call "relax"
 	//    on each edge.
 	// ...
-    	for (int i = 1; i < num_vertices+1; i++) {
-    		for (int j = index[i-1]; j < index[i]; j++) {
-    			relax.relax(i-1, sources[j]);
+    	for (int i = 1; i < num_vertices; i++) {
+    		for (int j = index[i]; j < index[i+1]; j++) {
+    			relax.relax(sources[j], i);
     		}
     	}
     }
