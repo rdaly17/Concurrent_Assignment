@@ -50,7 +50,6 @@ class Driver {
 		return;
 	    }
 	}
-
 	// Tell us what you're doing
 	System.err.println( "Format: " + format );
 	System.err.println( "Input file CSR: " + inputFileCSR );
@@ -75,7 +74,8 @@ class Driver {
 	    // Pick any you want.
 	    // matrix = new SparseMatrixCOO( inputFileCOO );
 	    // matrix = new SparseMatrixCSR( inputFileCSR );
-	    matrix = new SparseMatrixCSC( inputFileCSC );
+	    // matrix = new SparseMatrixCSC( inputFileCSC );
+		matrix = new SparseMatrixPipelined( inputFileCOO, 256 );
 	} else {
 	    System.err.println( "Unknown format '" + format + "'" );
             System.exit(43); // Kattis
@@ -93,10 +93,13 @@ class Driver {
 	// - ParallelContextSingleThread: fully implemented
 	// - ParallelContextSimple: needs to be completed by yourself when
 	//   asked for in the assignment brief.
+	
+	//only use the sequential parallel context for assignment 4
 	if( format.equalsIgnoreCase( "ICHOOSE" ) )
-	    ParallelContextHolder.set( new ParallelContextSimple(num_threads) );
-	else
-	    ParallelContextHolder.set( new ParallelContextSingleThread() );
+	    //ParallelContextHolder.set( new ParallelContextSimple(num_threads) );
+		ParallelContextHolder.set( new ParallelContextSingleThread() );
+	//else
+	    //ParallelContextHolder.set( new ParallelContextSingleThread() );
 
 	try {
 	    if( algorithm.equalsIgnoreCase( "PR" ) ) {

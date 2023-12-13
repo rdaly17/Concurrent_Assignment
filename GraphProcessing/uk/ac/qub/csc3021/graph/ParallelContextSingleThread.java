@@ -11,6 +11,6 @@ public class ParallelContextSingleThread extends ParallelContext {
 
     // Call into the iterate method and visit all edges
     public void edgemap( SparseMatrix matrix, Relax relax ) {
-	matrix.edgemap( relax );
+    	matrix.edgemap( relax );
     }
 }

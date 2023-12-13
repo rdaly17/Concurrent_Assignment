@@ -125,6 +125,6 @@ public class SparseMatrixCOO extends SparseMatrix {
 
     public void ranged_edgemap( Relax relax, int from, int to ) {
 	// Only implement for parallel/concurrent processing
-	// if you find it useful. Not relevant for the first assignment.
+	// if you find it useful. Not relevant for the fist assignment.
     }
 }
