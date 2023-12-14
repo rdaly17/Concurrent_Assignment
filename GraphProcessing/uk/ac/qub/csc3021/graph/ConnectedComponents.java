@@ -55,7 +55,7 @@ public class ConnectedComponents {
 
 	while( iter < max_iter && change ) {
 	    // 1. Assign same label to connected vertices
-	    context.edgemap( matrix, CCrelax );
+	    context.ranged_edgemap( matrix, CCrelax );
 	    // 2. Check changes and copy data over for new pass
 	    change = false;
 	    for( int i=0; i < n; ++i ) {

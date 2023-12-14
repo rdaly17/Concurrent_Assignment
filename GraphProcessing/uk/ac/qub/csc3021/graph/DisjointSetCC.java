@@ -15,16 +15,29 @@ public class DisjointSetCC {
 			union(src, dst);
 		}
 
-		public int find(int x) {
-			// find method using path halving
+		//public int find(int x) {
+			 //find method using path halving
 
-			if (parent.get(x) != x) {
-				// setting the parent of x to its grandparent
-				parent.set(x, find(parent.get(x)));
+			//if (parent.get(x) != x) {
+				 //setting the parent of x to its grandparent
+				//parent.set(x, find(parent.get(x)));
+			//}
+
+			//return parent.get(x);
+		//}
+		
+		public int find(int x) {
+			// find method using path compression
+
+			int r = x;
+			while(parent.get(r) != r) {
+				parent.set(r, parent.get(parent.get(r)));
+				r = parent.get(r);
 			}
 
-			return parent.get(x);
+			return r;
 		}
+		
 
 		private boolean sameSet(int x, int y) {
 			// returns true if x and y in same set and false if not
@@ -80,7 +93,7 @@ public class DisjointSetCC {
 		ParallelContext context = ParallelContextHolder.get();
 
 		// 1. Make pass over graph
-		context.edgemap(matrix, DSCCrelax);
+		context.ranged_edgemap(matrix, DSCCrelax);
 
 		double tm_step = (double) (System.nanoTime() - tm_start) * 1e-9;
 		if (verbose)

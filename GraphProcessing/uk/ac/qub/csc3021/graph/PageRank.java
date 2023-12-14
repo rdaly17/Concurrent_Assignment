@@ -54,7 +54,7 @@ public class PageRank {
 	    // Power iteration step.
 	    // 1. Transfering weight over out-going links (summation part)
 		long edgemap_start = System.nanoTime();
-	    context.edgemap( matrix, PRrelax );
+	    context.ranged_edgemap( matrix, PRrelax );
 	    double edgemap_time = (double)(System.nanoTime() - edgemap_start) * 1e-9;
 	    total_edgemap_time += edgemap_time;
 	    // 2. Constants (1-d)v[i] added in separately.
@@ -129,7 +129,7 @@ public class PageRank {
 	ParallelContext context = ParallelContextHolder.get();
 
 	// Perform one step of the power iteration
-	context.edgemap( matrix, PRrelax );
+	context.ranged_edgemap( matrix, PRrelax );
 
 	// Constants (1-d)v[i] added in separately.
 	double w = 1.0 - sum( y, n );

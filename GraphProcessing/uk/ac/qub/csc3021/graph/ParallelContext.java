@@ -15,5 +15,5 @@ public abstract class ParallelContext {
     // This is currently calling into the edgemap method in the matrix.
     // You will specialise this class to introduce concurrency in Question 2
     // and will update this class in subsequent questions.
-    public abstract void edgemap( SparseMatrix matrix, Relax relax );
+    public abstract void ranged_edgemap( SparseMatrix matrix, Relax relax );
 }

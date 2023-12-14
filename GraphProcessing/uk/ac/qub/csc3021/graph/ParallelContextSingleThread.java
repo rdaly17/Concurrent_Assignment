@@ -10,7 +10,7 @@ public class ParallelContextSingleThread extends ParallelContext {
     public void terminate() { }
 
     // Call into the iterate method and visit all edges
-    public void edgemap( SparseMatrix matrix, Relax relax ) {
+    public void ranged_edgemap( SparseMatrix matrix, Relax relax ) {
     	matrix.edgemap( relax );
     }
 }
