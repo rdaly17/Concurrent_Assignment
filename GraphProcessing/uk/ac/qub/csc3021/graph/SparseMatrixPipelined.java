@@ -213,4 +213,9 @@ public class SparseMatrixPipelined extends SparseMatrix {
 	// Only implement for parallel/concurrent processing
 	// if you find it useful. Not relevant for the fist assignment.
     }
+
+	public void processLines(Relax relax, int from, int to) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }

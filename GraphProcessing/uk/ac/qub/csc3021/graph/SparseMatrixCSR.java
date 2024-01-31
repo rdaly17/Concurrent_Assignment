@@ -117,4 +117,9 @@ public class SparseMatrixCSR extends SparseMatrix {
 	// Only implement for parallel/concurrent processing
 	// if you find it useful
     }
+
+	public void processLines(Relax relax, int from, int to) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }
